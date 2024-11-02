@@ -1,0 +1,42 @@
+.plance-plugin-multilang-perelink {
+	.plc-block {
+		margin-top: 15px;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.plc-block-fields {
+		display: flex;
+		flex-direction: row;
+		align-content: center;
+		flex-wrap: nowrap;
+	}
+
+	.plc-field-select {
+		width: calc( 100% - 20px );
+	}
+
+	.plc-field-link {
+		text-align: center;
+		width: 20px;
+		margin-left: 5px;
+
+		a {
+			text-decoration: none;
+			font-size: 20px;
+			color: #3C434A;
+		}
+	}
+
+	.plc-field__select {
+		width: 100%;
+	}
+
+	.plc-description {
+		color: #7a7a7a;
+		font-size: 12px;
+		margin-top: 10px;
+	}
+}
