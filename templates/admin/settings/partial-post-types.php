@@ -26,5 +26,5 @@ use Plance\Plugin\Multilang_Perelink\Settings;
 <?php endforeach; ?>
 
 <p class="description">
-	<?php esc_html_e( 'Select post tapes for perelinking.', 'plance-multilang-perelink' ); ?>
+	<?php esc_html_e( 'Select post types for perelinking.', 'plance-multilang-perelink' ); ?>
 </p>
