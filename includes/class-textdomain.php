@@ -9,7 +9,7 @@ namespace Plance\Plugin\Multilang_Perelink;
 
 defined( 'ABSPATH' ) || exit;
 
-use Plance\Plugin\Portfolio_Light\Singleton;
+use Plance\Plugin\Multilang_Perelink\Singleton;
 
 /**
  * Textdomain class.
