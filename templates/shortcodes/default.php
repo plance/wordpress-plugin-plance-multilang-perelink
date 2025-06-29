@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( empty( $args['languages'] ) ) :
+if ( empty( $args['languages'] ) || ! is_array( $args['languages'] ) ) :
 	return;
 endif;
 
@@ -27,6 +27,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 
 <select class="plugin-multilang-perelink-field-select | js-plugin-multilang-perelink-field-select">
 	<?php foreach ( $args['languages'] as $language ) : ?>
-		<option value="<?php echo esc_attr( $language['url'] ); ?>"<?php echo selected( $language['locale'], $args['current_locale'] ); ?>><?php echo esc_attr( $language['language'] ); ?></option>
+		<option value="<?php echo esc_url( $language['url'] ); ?>"<?php echo selected( $language['locale'], $args['current_locale'] ); ?>><?php echo esc_attr( $language['language'] ); ?></option>
 	<?php endforeach; ?>
 </select>

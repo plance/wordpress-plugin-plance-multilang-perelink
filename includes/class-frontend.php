@@ -9,9 +9,6 @@ namespace Plance\Plugin\Multilang_Perelink;
 
 defined( 'ABSPATH' ) || exit;
 
-use Plance\Plugin\Multilang_Perelink\Languages;
-use Plance\Plugin\Multilang_Perelink\Singleton;
-
 /**
  * Frontend class.
  */
@@ -49,6 +46,6 @@ class Frontend {
 	 */
 	private function print_alternate( $data ) {
 		echo "\n";
-		echo sprintf( '<link rel="alternate" hreflang="%s" href="%s" title="%s" />', $data['code'], $data['url'], $data['code'] ); // phpcs:ignore
+		echo sprintf( '<link rel="alternate" hreflang="%s" href="%s" title="%s" />', esc_attr( $data['code'] ), esc_url( $data['url'] ), esc_attr( $data['code'] ) ); // phpcs:ignore
 	}
 }

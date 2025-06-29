@@ -9,9 +9,6 @@ namespace Plance\Plugin\Multilang_Perelink;
 
 defined( 'ABSPATH' ) || exit;
 
-use const Plance\Plugin\Multilang_Perelink\FIELD_LINKING;
-use Plance\Plugin\Multilang_Perelink\Singleton;
-
 /**
  * Model_Post class.
  */

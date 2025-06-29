@@ -11,7 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 use WP_Site;
 use Exception;
-use const Plance\Plugin\Multilang_Perelink\PATH;
 
 /**
  * Helpers class.
@@ -73,7 +72,7 @@ final class Helpers {
 	 * @return array
 	 */
 	public static function filter_input_list( $name ) {
-		$input = (array) filter_input( INPUT_POST, $name, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$input = (array) filter_input( INPUT_POST, $name, FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
 		$input = array_filter( $input );
 
 		return $input;
@@ -110,7 +109,7 @@ final class Helpers {
 			$sites_args['site__in'] = $args['site__in'];
 		}
 
-		$sites_ids = get_sites( $sites_args );
+		$sites_ids = self::get_sites( $sites_args );
 
 		try {
 
@@ -145,7 +144,7 @@ final class Helpers {
 			return $languages;
 		}
 
-		$sites_ids = get_sites(
+		$sites_ids = self::get_sites(
 			array(
 				'fields' => 'ids',
 			)
@@ -199,7 +198,7 @@ final class Helpers {
 			if ( ! empty( $languages[ $site_id ] ) ) {
 				$restul[] = $languages[ $site_id ]['code'];
 			} else {
-				$restul[] = __( 'undefined', 'plance-multilang-perelink' );
+				$restul[] = __( 'undefined', 'multilang-perelink' );
 			}
 		}
 
@@ -264,5 +263,19 @@ final class Helpers {
 		);
 
 		return $languages;
+	}
+
+	/**
+	 * Retrieves a list of sites matching requested arguments.
+	 *
+	 * @param string|array $args Optional.
+	 * @return WP_Site[]|int[]|int List of WP_Site objects.
+	 */
+	public static function get_sites( $args ) {
+		if ( ! function_exists( 'get_sites' ) ) {
+			return array();
+		}
+
+		return get_sites( $args );
 	}
 }

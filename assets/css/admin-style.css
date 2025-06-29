@@ -1,3 +1,9 @@
+th, td {
+	&.column-multilang_perelink {
+		width: 60px;
+	}
+}
+
 .plance-plugin-multilang-perelink {
 	.plc-block {
 		margin-top: 15px;

@@ -15,7 +15,7 @@ const VERSION       = '1.0.0';
 const SECURITY      = 'plance_plugin_multilang_perelink__xyz';
 const FIELD_LINKING = '_plance_plugin_multilang_perelink';
 
-define( __NAMESPACE__ . '\URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
+define( 'PLANCE_PLUGIN_MULTILANG_PERELINK_URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
 
 
 add_action(
@@ -38,23 +38,9 @@ spl_autoload_register(
 			return;
 		}
 
-		$class     = str_replace( __NAMESPACE__ . '\\', '', $class );
-		$class     = str_replace( '_', '-', strtolower( $class ) );
-		$folders   = explode( '\\', $class );
-		$classname = array_pop( $folders );
-
-		$path = '';
-		if ( ! empty( $folders ) ) {
-			$path = join( DIRECTORY_SEPARATOR, $folders ) . DIRECTORY_SEPARATOR;
-		}
-
-		$prefixes = array( 'class' );
-		foreach ( $prefixes as $prefix ) {
-			$file_name = PATH . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . $path . $prefix . '-' . $classname . '.php';
-			if ( file_exists( $file_name ) ) {
-				require_once $file_name;
-				return;
-			}
-		}
+		$pieces    = explode( '\\', $class );
+		$classname = array_pop( $pieces );
+		$file_name = 'class-' . str_replace( '_', '-', strtolower( $classname ) );
+		include_once PATH . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . $file_name . '.php';
 	}
 );

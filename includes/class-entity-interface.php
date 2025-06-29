@@ -11,8 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 use WP_Site;
 use Exception;
-use Plance\Plugin\Multilang_Perelink\Helpers;
-use Plance\Plugin\Multilang_Perelink\Base_Model;
 
 /**
  * Entity_Interface class.
@@ -57,11 +55,11 @@ class Entity_Interface {
 		);
 
 		wp_enqueue_style( 'vendor-select2' );
-		wp_enqueue_style( 'plance-multilang-perelink' );
-		wp_enqueue_script( 'plance-multilang-perelink' );
+		wp_enqueue_script( 'multilang-perelink' );
 
-		echo Helpers::template( // phpcs:ignore
+		load_template(
 			$template,
+			false,
 			array(
 				'sites_data'            => $sites_data,
 				'sites_ids_objects_ids' => $this->model->get_linking( $id ),
@@ -161,7 +159,7 @@ class Entity_Interface {
 	 * @return array
 	 */
 	public function manage_columns( $columns ) {
-		$columns['multilang_perelink'] = 'Linking';
+		$columns['multilang_perelink'] = __( 'Linking', 'multilang-perelink' );
 
 		return $columns;
 	}

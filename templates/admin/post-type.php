@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( empty( $args['sites_data'] ) ) :
+if ( empty( $args['sites_data'] ) || ! is_array( $args['sites_data'] ) ) :
 	return;
 endif;
 
@@ -21,7 +21,7 @@ $sites_ids_objects_ids = $args['sites_ids_objects_ids'] ?? array();
 			<strong><?php echo esc_attr( $site['site_name'] ); ?>:</strong>
 		</div>
 		<div class="plc-block-fields | js-plc-block-fields">
-			<?php if ( ! empty( $site['items'] ) ) : ?>
+			<?php if ( ! empty( $site['items'] ) && is_array( $site['items'] ) ) : ?>
 
 				<div class="plc-field-select">
 					<select name="multilang_perelink_posts_ids[<?php echo esc_attr( $site['site_id'] ); ?>]" class="plc-field__select | js-plc-field__select">
@@ -62,7 +62,7 @@ $sites_ids_objects_ids = $args['sites_ids_objects_ids'] ?? array();
 					</a>
 				</div>
 			<?php else : ?>
-				<?php esc_html_e( 'Posts not found', 'plance-multilang-perelink' ); ?>
+				<?php esc_html_e( 'Posts not found', 'multilang-perelink' ); ?>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -70,7 +70,7 @@ $sites_ids_objects_ids = $args['sites_ids_objects_ids'] ?? array();
 <?php endforeach; ?>
 
 <div class="plc-description">
-	<p class="description">* <?php esc_html_e( 'Only posts with the status Published or Draft are displayed.', 'plance-multilang-perelink' ); ?></p>
+	<p class="description">* <?php esc_html_e( 'Only posts with the status Published or Draft are displayed.', 'multilang-perelink' ); ?></p>
 </div>
 
 <?php foreach ( $sites_ids_objects_ids as $site_id => $loop_post_id ) : ?>

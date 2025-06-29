@@ -16,5 +16,5 @@ use Plance\Plugin\Multilang_Perelink\Settings;
 		name="<?php echo esc_attr( Settings::FIELD_HOMEPAGE ); ?>"
 		<?php checked( Settings::get_option( Settings::FIELD_HOMEPAGE ), 'yes' ); ?>
 		value="yes">
-	<?php esc_html_e( 'Perelinking homepages.', 'plance-multilang-perelink' ); ?>
+	<?php esc_html_e( 'Perelinking homepages.', 'multilang-perelink' ); ?>
 </label>

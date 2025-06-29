@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Multilang Perelink\n"
-"POT-Creation-Date: 2024-11-03 16:07+0200\n"
-"PO-Revision-Date: 2024-11-03 16:11+0200\n"
+"POT-Creation-Date: 2025-06-29 20:20+0300\n"
+"PO-Revision-Date: 2025-06-29 20:21+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: uk_UA\n"
@@ -11,43 +11,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_x;_n;gettext;gettext_noop;esc_html_e;_;_ex;_nx;"
 "esc_html__;esc_attr__;esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: assets\n"
 
-#: includes/class-admin-settings.php:46 includes/class-admin-settings.php:149
+#: includes/class-admin-settings.php:42 includes/class-admin-settings.php:165
 msgid "Settings"
 msgstr "Налаштування"
 
-#: includes/class-admin-settings.php:54
+#: includes/class-admin-settings.php:56
 msgid "Homepage"
 msgstr "Головна сторінка"
 
-#: includes/class-admin-settings.php:65
+#: includes/class-admin-settings.php:73
 msgid "Post types"
 msgstr "Типи записів"
 
-#: includes/class-admin-settings.php:93
+#: includes/class-admin-settings.php:108
 msgid "Taxonomies"
 msgstr "Таксономії"
 
-#: includes/class-admin-settings.php:126 includes/class-admin-settings.php:127
+#: includes/class-admin-settings.php:142 includes/class-admin-settings.php:143
 #: templates/admin/settings/page.php:14
 msgid "Multilang Perelink"
 msgstr "Multilang Perelink"
 
-#: includes/class-dependency.php:41
+#: includes/class-dependency.php:39
 msgid "Plugin \"Multilang Perelink\" works only in multisite mode!"
 msgstr "Плагін \"Multilang Perelink\" працює лише в режимі мультисайтингу!"
+
+#: includes/class-entity-interface.php:170
+msgid "Linking"
+msgstr "Linking"
 
 #: includes/class-helpers.php:202
 msgid "undefined"
 msgstr "невизначений"
 
-#: includes/class-post-type.php:77 templates/admin/taxonomy-create.php:12
+#: includes/class-post-type.php:72 templates/admin/taxonomy-create.php:12
 #: templates/admin/taxonomy-edit.php:20
 msgid "Perelinks"
 msgstr "Перелінківка"
@@ -64,13 +68,21 @@ msgstr "Відображаються лише записи зі статусом
 msgid "Perelinking homepages."
 msgstr "Перелінкування домашніх сторінок."
 
-#: templates/admin/settings/partial-post-types.php:29
+#: templates/admin/settings/partial-post-types.php:31
 msgid "Select post types for perelinking."
 msgstr "Виберіть типи записів для перелінування."
 
-#: templates/admin/settings/partial-taxonomies.php:29
+#: templates/admin/settings/partial-post-types.php:36
+msgid "There are no post types."
+msgstr "Немає типів публікацій."
+
+#: templates/admin/settings/partial-taxonomies.php:31
 msgid "Select taxonomies for perelinking."
 msgstr "Виберіть таксономії для перелінування."
+
+#: templates/admin/settings/partial-taxonomies.php:36
+msgid "There are no taxonomies."
+msgstr "Таксономій немає."
 
 #: templates/admin/taxonomy-create.php:13
 msgid "Terms can be linked on the term editing page."

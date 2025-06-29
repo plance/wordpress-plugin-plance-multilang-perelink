@@ -10,10 +10,6 @@ namespace Plance\Plugin\Multilang_Perelink;
 defined( 'ABSPATH' ) || exit;
 
 use WP_Term;
-use Plance\Plugin\Multilang_Perelink\Settings;
-use Plance\Plugin\Multilang_Perelink\Singleton;
-use Plance\Plugin\Multilang_Perelink\Model_Term;
-use Plance\Plugin\Multilang_Perelink\Entity_Interface;
 
 /**
  * Taxonomy class.
@@ -83,7 +79,7 @@ class Taxonomy {
 			return;
 		}
 
-		echo $this->entity_interface->print_form( '/admin/taxonomy-edit.php', $term->term_id, $taxonomy ); // phpcs:ignore
+		echo $this->entity_interface->print_form( PATH . '/templates/admin/taxonomy-edit.php', $term->term_id, $taxonomy ); // phpcs:ignore
 	}
 
 	/**

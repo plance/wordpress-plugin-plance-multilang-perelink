@@ -9,8 +9,6 @@ namespace Plance\Plugin\Multilang_Perelink;
 
 defined( 'ABSPATH' ) || exit;
 
-use Plance\Plugin\Multilang_Perelink\Singleton;
-
 /**
  * Dependesy class.
  */
@@ -38,7 +36,7 @@ class Dependency {
 	public function admin_notices() {
 		?>
 			<div class="notice notice-error">
-				<p><?php esc_html_e( 'Plugin "Multilang Perelink" works only in multisite mode!', 'plance-multilang-perelink' ); ?></p>
+				<p><?php esc_html_e( 'Plugin "Multilang Perelink" works only in multisite mode!', 'multilang-perelink' ); ?></p>
 			</div>
 		<?php
 	}

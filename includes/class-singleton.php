@@ -16,18 +16,18 @@ trait Singleton {
 	/**
 	 * Object instance
 	 *
-	 * @var object
+	 * @var static|null
 	 */
 	protected static $instance = null;
 
 	/**
 	 * Gets the instance
 	 *
-	 * @return self
+	 * @return static
 	 */
 	final public static function instance() {
-		if ( is_null( self::$instance ) ) {
-			self::$instance = new self();
+		if ( null === self::$instance ) {
+			self::$instance = new static();
 		}
 		return self::$instance;
 	}

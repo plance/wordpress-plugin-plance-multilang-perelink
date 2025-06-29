@@ -10,11 +10,6 @@ namespace Plance\Plugin\Multilang_Perelink;
 defined( 'ABSPATH' ) || exit;
 
 use WP_Post;
-use Plance\Plugin\Multilang_Perelink\Helpers;
-use Plance\Plugin\Multilang_Perelink\Settings;
-use Plance\Plugin\Multilang_Perelink\Singleton;
-use Plance\Plugin\Multilang_Perelink\Model_Post;
-use Plance\Plugin\Multilang_Perelink\Entity_Interface;
 
 /**
  * Post_Type class.
@@ -74,7 +69,7 @@ class Post_Type {
 
 		add_meta_box(
 			'plance-plugin-multilang_perelink',
-			__( 'Perelinks', 'plance-multilang-perelink' ),
+			__( 'Perelinks', 'multilang-perelink' ),
 			array( $this, 'meta_boxes_callback' ),
 			$this->post_types,
 			'normal',
@@ -90,7 +85,7 @@ class Post_Type {
 	public function meta_boxes_callback() {
 		global $post, $post_type;
 
-		echo $this->entity_interface->print_form( '/admin/post-type.php', $post->ID, $post_type ); // phpcs:ignore
+		echo $this->entity_interface->print_form( PATH . '/templates/admin/post-type.php', $post->ID, $post_type ); // phpcs:ignore
 	}
 
 	/**
@@ -101,8 +96,8 @@ class Post_Type {
 	 */
 	public function save_post( $post_id ) {
 		if (
-			'list' === filter_input( INPUT_POST, 'post_view', FILTER_DEFAULT ) ||
-			'list' === filter_input( INPUT_GET, 'post_view', FILTER_DEFAULT )
+			'list' === filter_input( INPUT_POST, 'post_view', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ||
+			'list' === filter_input( INPUT_GET, 'post_view', FILTER_SANITIZE_FULL_SPECIAL_CHARS )
 			) {
 			return;
 		}

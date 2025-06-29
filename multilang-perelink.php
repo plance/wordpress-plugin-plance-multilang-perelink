@@ -5,14 +5,13 @@
  * @package Plance\Plugin\Multilang_Perelink
  *
  * Plugin Name: Multilang Perelink
- * Plugin URI:  https://wordpress.org/plugins/plance-multilang-perelink/
  * Description: Perelinking for a multilingual site
+ * Plugin URI:  https://plance.top/
  * Version:     1.0.0
- * Author:      Pavel
- * Author       URI: https://plance.top/
+ * Author:      plance
  * License:     GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: plance-multilang-perelink
+ * Text Domain: multilang-perelink
  * Domain Path: /languages/
  */
 

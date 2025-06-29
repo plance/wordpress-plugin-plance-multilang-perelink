@@ -9,10 +9,6 @@ namespace Plance\Plugin\Multilang_Perelink;
 
 defined( 'ABSPATH' ) || exit;
 
-use Plance\Plugin\Multilang_Perelink\Helpers;
-use Plance\Plugin\Multilang_Perelink\Languages;
-use Plance\Plugin\Multilang_Perelink\Singleton;
-
 /**
  * Shortcode class.
  */
@@ -34,9 +30,9 @@ class Shortcode {
 	 * @return void
 	 */
 	public function shortcode() {
-
-		echo Helpers::template_theme( //phpcs:ignore
-			'/shortcodes/default.php',
+		load_template(
+			PATH . '/templates/shortcodes/default.php',
+			false,
 			array(
 				'languages'      => Languages::instance()->get_page_languages(),
 				'current_locale' => Helpers::get_current_site_locale(),

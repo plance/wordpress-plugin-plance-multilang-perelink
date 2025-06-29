@@ -11,11 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 use WP_Post;
 use WP_Term;
-use Plance\Plugin\Multilang_Perelink\Helpers;
-use Plance\Plugin\Multilang_Perelink\Settings;
-use Plance\Plugin\Multilang_Perelink\Singleton;
-use Plance\Plugin\Multilang_Perelink\Model_Post;
-use Plance\Plugin\Multilang_Perelink\Model_Term;
 
 /**
  * Languages class.
@@ -47,7 +42,7 @@ class Languages {
 			}
 
 			$languages = Helpers::get_languages();
-			$sites_ids = get_sites(
+			$sites_ids = Helpers::get_sites(
 				array(
 					'fields' => 'ids',
 					'public' => 1,

@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( empty( $args['sites_data'] ) ) :
+if ( empty( $args['sites_data'] ) || ! is_array( $args['sites_data'] ) ) :
 	return;
 endif;
 
@@ -17,7 +17,7 @@ $sites_ids_objects_ids = $args['sites_ids_objects_ids'] ?? array();
 
 <tr class="form-field">
 	<th scope="row" valign="top">
-		<label><?php esc_html_e( 'Perelinks', 'plance-multilang-perelink' ); ?></label>
+		<label><?php esc_html_e( 'Perelinks', 'multilang-perelink' ); ?></label>
 	</th>
 	<td>
 
@@ -27,7 +27,7 @@ $sites_ids_objects_ids = $args['sites_ids_objects_ids'] ?? array();
 					<?php echo esc_attr( $site['site_name'] ); ?>:
 				</div>
 				<div class="plc-block-fields | js-plc-block-fields">
-					<?php if ( ! empty( $site['items'] ) ) : ?>
+					<?php if ( ! empty( $site['items'] ) && is_array( $site['items'] ) ) : ?>
 
 						<div class="plc-field-select">
 							<select name="multilang_perelink_terms_ids[<?php echo esc_attr( $site['site_id'] ); ?>]" class="plc-field__select | js-plc-field__select">
@@ -68,7 +68,7 @@ $sites_ids_objects_ids = $args['sites_ids_objects_ids'] ?? array();
 							</a>
 						</div>
 					<?php else : ?>
-						<?php esc_html_e( 'Terms not found', 'plance-multilang-perelink' ); ?>
+						<?php esc_html_e( 'Terms not found', 'multilang-perelink' ); ?>
 					<?php endif; ?>
 				</div>
 			</div>

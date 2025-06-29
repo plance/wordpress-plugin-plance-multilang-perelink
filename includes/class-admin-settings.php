@@ -9,10 +9,6 @@ namespace Plance\Plugin\Multilang_Perelink;
 
 defined( 'ABSPATH' ) || exit;
 
-use Plance\Plugin\Multilang_Perelink\Helpers;
-use Plance\Plugin\Multilang_Perelink\Settings;
-use Plance\Plugin\Multilang_Perelink\Singleton;
-
 /**
  * Admin_Settings class.
  */
@@ -43,26 +39,38 @@ class Admin_Settings {
 
 		add_settings_section(
 			self::SECTION,
-			__( 'Settings', 'plance-multilang-perelink' ),
+			__( 'Settings', 'multilang-perelink' ),
 			null,
 			self::SLUG
 		);
 
-		register_setting( self::GROUP, Settings::FIELD_HOMEPAGE );
+		register_setting(
+			self::GROUP,
+			Settings::FIELD_HOMEPAGE,
+			array(
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
 		add_settings_field(
 			Settings::FIELD_HOMEPAGE,
-			__( 'Homepage', 'plance-multilang-perelink' ),
+			__( 'Homepage', 'multilang-perelink' ),
 			function() {
-				echo Helpers::template( '/admin/settings/partial-homepage.php' ); //phpcs:ignore
+				load_template( PATH . '/templates/admin/settings/partial-homepage.php' );
 			},
 			self::SLUG,
 			self::SECTION
 		);
 
-		register_setting( self::GROUP, Settings::FIELD_POST_TYPES );
+		register_setting(
+			self::GROUP,
+			Settings::FIELD_POST_TYPES,
+			array(
+				'sanitize_callback' => array( $this, 'sanitize_string_array' ),
+			)
+		);
 		add_settings_field(
 			Settings::FIELD_POST_TYPES,
-			__( 'Post types', 'plance-multilang-perelink' ),
+			__( 'Post types', 'multilang-perelink' ),
 			function() {
 				$post_types = get_post_types(
 					array(
@@ -75,8 +83,9 @@ class Admin_Settings {
 					unset( $post_types['attachment'] );
 				}
 
-				echo Helpers::template( //phpcs:ignore
-					'/admin/settings/partial-post-types.php',
+				load_template(
+					PATH . '/templates/admin/settings/partial-post-types.php',
+					false,
 					array(
 						'post_types'          => $post_types,
 						'selected_post_types' => Settings::get_post_types(),
@@ -87,10 +96,16 @@ class Admin_Settings {
 			self::SECTION
 		);
 
-		register_setting( self::GROUP, Settings::FIELD_TAXONOMIES );
+		register_setting(
+			self::GROUP,
+			Settings::FIELD_TAXONOMIES,
+			array(
+				'sanitize_callback' => array( $this, 'sanitize_string_array' ),
+			)
+		);
 		add_settings_field(
 			Settings::FIELD_TAXONOMIES,
-			__( 'Taxonomies', 'plance-multilang-perelink' ),
+			__( 'Taxonomies', 'multilang-perelink' ),
 			function() {
 				$taxonomies = get_taxonomies(
 					array(
@@ -103,8 +118,9 @@ class Admin_Settings {
 					unset( $taxonomies['post_format'] );
 				}
 
-				echo Helpers::template( //phpcs:ignore
-					'/admin/settings/partial-taxonomies.php',
+				load_template(
+					PATH . '/templates/admin/settings/partial-taxonomies.php',
+					false,
 					array(
 						'taxonomies'          => $taxonomies,
 						'selected_taxonomies' => Settings::get_taxonomies(),
@@ -123,8 +139,8 @@ class Admin_Settings {
 	 */
 	public function admin_menu() {
 		add_options_page(
-			__( 'Multilang Perelink', 'plance-multilang-perelink' ),
-			__( 'Multilang Perelink', 'plance-multilang-perelink' ),
+			__( 'Multilang Perelink', 'multilang-perelink' ),
+			__( 'Multilang Perelink', 'multilang-perelink' ),
 			'manage_options',
 			self::SLUG,
 			function() {
@@ -142,14 +158,28 @@ class Admin_Settings {
 	 * @return mixed
 	 */
 	public function plugin_action_links( $links, $file ) {
-		if ( strpos( $file, '/plance-multilang-perelink.php' ) === false ) {
+		if ( strpos( $file, '/multilang-perelink.php' ) === false ) {
 			return $links;
 		}
 
-		$settings_link = '<a href="' . menu_page_url( self::SLUG, false ) . '">' . esc_html( __( 'Settings' ) ) . '</a>';
+		$settings_link = '<a href="' . menu_page_url( self::SLUG, false ) . '">' . esc_html( __( 'Settings', 'multilang-perelink' ) ) . '</a>';
 
 		array_unshift( $links, $settings_link );
 
 		return $links;
+	}
+
+	/**
+	 * Sanitize string array.
+	 *
+	 * @param  array $input input data.
+	 * @return array
+	 */
+	public function sanitize_string_array( $input ) {
+		if ( ! is_array( $input ) ) {
+			return array();
+		}
+
+		return array_map( 'sanitize_text_field', $input );
 	}
 }
