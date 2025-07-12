@@ -5,6 +5,9 @@
  * @package Plance\Plugin\Multilang_Perelink
  */
 
+use const Plance\Plugin\Multilang_Perelink\SECURITY;
+use const Plance\Plugin\Multilang_Perelink\SECURITY_NAME;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( empty( $args['sites_data'] ) || ! is_array( $args['sites_data'] ) ) :
@@ -14,6 +17,8 @@ endif;
 $sites_data            = $args['sites_data'];
 $sites_ids_objects_ids = $args['sites_ids_objects_ids'] ?? array();
 ?>
+
+<?php wp_nonce_field( SECURITY, SECURITY_NAME ); ?>
 
 <?php foreach ( $sites_data as $site ) : ?>
 	<div class="plc-block">

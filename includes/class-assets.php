@@ -21,7 +21,23 @@ class Assets {
 	 * @return void
 	 */
 	protected function init() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+	}
+
+	/**
+	 * Hook: wp_enqueue_scripts.
+	 *
+	 * @return void
+	 */
+	public function wp_enqueue_scripts() {
+		wp_register_script(
+			'multilang-perelink',
+			PLANCE_PLUGIN_MULTILANG_PERELINK_URL . '/assets/js/javascript.js',
+			array(),
+			Helpers::get_version(),
+			true
+		);
 	}
 
 	/**

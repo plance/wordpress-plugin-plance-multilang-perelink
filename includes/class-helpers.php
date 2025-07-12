@@ -66,19 +66,6 @@ final class Helpers {
 	}
 
 	/**
-	 * Filter input data.
-	 *
-	 * @param  string $name Name.
-	 * @return array
-	 */
-	public static function filter_input_list( $name ) {
-		$input = (array) filter_input( INPUT_POST, $name, FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY );
-		$input = array_filter( $input );
-
-		return $input;
-	}
-
-	/**
 	 * Walk by sites.
 	 *
 	 * @param  callable $callback Callback.
@@ -211,7 +198,10 @@ final class Helpers {
 	 * @return bool
 	 */
 	public static function is_current_site_public() {
-		/** @var WP_Site $current_site */ // phpcs:ignore
+		if ( ! function_exists( 'get_site' ) ) {
+			return false;
+		}
+
 		$site = get_site();
 
 		if ( ! $site instanceof WP_Site ) {
@@ -271,7 +261,7 @@ final class Helpers {
 	 * @param string|array $args Optional.
 	 * @return WP_Site[]|int[]|int List of WP_Site objects.
 	 */
-	public static function get_sites( $args ) {
+	public static function get_sites( $args = array() ) {
 		if ( ! function_exists( 'get_sites' ) ) {
 			return array();
 		}

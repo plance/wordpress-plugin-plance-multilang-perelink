@@ -98,7 +98,20 @@ class Post_Type {
 		if (
 			'list' === filter_input( INPUT_POST, 'post_view', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ||
 			'list' === filter_input( INPUT_GET, 'post_view', FILTER_SANITIZE_FULL_SPECIAL_CHARS )
-			) {
+		) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		$input_wpnonce = filter_input( INPUT_POST, SECURITY_NAME, FILTER_CALLBACK, array( 'options' => 'sanitize_text_field' ) );
+		if ( ! wp_verify_nonce( $input_wpnonce, SECURITY ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
 
@@ -106,8 +119,8 @@ class Post_Type {
 			return;
 		}
 
-		$input_perelink_new = Helpers::filter_input_list( 'multilang_perelink_posts_ids' );
-		$input_perelink_old = Helpers::filter_input_list( '_multilang_perelink_posts_ids' );
+		$input_perelink_new = array_filter( (array) filter_input( INPUT_POST, 'multilang_perelink_posts_ids', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY ) );
+		$input_perelink_old = array_filter( (array) filter_input( INPUT_POST, '_multilang_perelink_posts_ids', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY ) );
 
 		$this->entity_interface->save( $post_id, $input_perelink_new, $input_perelink_old );
 	}

@@ -89,12 +89,30 @@ class Taxonomy {
 	 * @return void
 	 */
 	public function edited_term( $term_id ) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		$input_wpnonce = filter_input( INPUT_POST, SECURITY_NAME, FILTER_CALLBACK, array( 'options' => 'sanitize_text_field' ) );
+		if ( ! wp_verify_nonce( $input_wpnonce, SECURITY ) ) {
+			return;
+		}
+
+		$term = get_term( $term_id );
+		if ( ! $term || is_wp_error( $term ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'edit_term', $term_id, $term->taxonomy ) ) {
+			return;
+		}
+
 		if ( ! isset( $_POST['multilang_perelink_terms_ids'] ) ) { // phpcs:ignore
 			return;
 		}
 
-		$input_perelink_new = Helpers::filter_input_list( 'multilang_perelink_terms_ids' );
-		$input_perelink_old = Helpers::filter_input_list( '_multilang_perelink_terms_ids' );
+		$input_perelink_new = array_filter( (array) filter_input( INPUT_POST, 'multilang_perelink_terms_ids', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY ) );
+		$input_perelink_old = array_filter( (array) filter_input( INPUT_POST, '_multilang_perelink_terms_ids', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY ) );
 
 		$this->entity_interface->save( $term_id, $input_perelink_new, $input_perelink_old );
 	}

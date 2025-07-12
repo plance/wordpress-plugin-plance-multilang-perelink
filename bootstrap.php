@@ -13,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
 const PATH          = __DIR__;
 const VERSION       = '1.0.0';
 const SECURITY      = 'plance_plugin_multilang_perelink__xyz';
+const SECURITY_NAME = '_plance_plugin_multilang_perelink_nonce';
 const FIELD_LINKING = '_plance_plugin_multilang_perelink';
 
 define( 'PLANCE_PLUGIN_MULTILANG_PERELINK_URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
