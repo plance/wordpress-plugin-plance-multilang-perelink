@@ -46,16 +46,33 @@ class Admin_Settings {
 
 		register_setting(
 			self::GROUP,
-			Settings::FIELD_HOMEPAGE,
+			Settings::FIELD_HOME_PAGE,
 			array(
 				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 		add_settings_field(
-			Settings::FIELD_HOMEPAGE,
+			Settings::FIELD_HOME_PAGE,
 			__( 'Homepage', 'multilang-perelink' ),
 			function() {
-				load_template( PATH . '/templates/admin/settings/partial-homepage.php' );
+				load_template( PATH . '/templates/admin/settings/partial-home-page.php' );
+			},
+			self::SLUG,
+			self::SECTION
+		);
+
+		register_setting(
+			self::GROUP,
+			Settings::FIELD_BLOG_PAGE,
+			array(
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		add_settings_field(
+			Settings::FIELD_BLOG_PAGE,
+			__( 'Blog page', 'multilang-perelink' ),
+			function() {
+				load_template( PATH . '/templates/admin/settings/partial-blog-page.php' );
 			},
 			self::SLUG,
 			self::SECTION

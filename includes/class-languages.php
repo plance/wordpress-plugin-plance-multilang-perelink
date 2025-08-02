@@ -37,7 +37,7 @@ class Languages {
 
 		if ( is_front_page() ) {
 
-			if ( ! Settings::is_enable_homepage() ) {
+			if ( ! Settings::is_enable_home_page() ) {
 				return;
 			}
 
@@ -52,6 +52,23 @@ class Languages {
 			foreach ( $sites_ids as $site_id ) {
 				$this->add_language( $languages[ $site_id ], user_trailingslashit( get_blog_option( $site_id, 'siteurl' ) ) );
 			}
+		} elseif ( is_home() && ! is_front_page() ) {
+
+			if ( ! Settings::is_enable_blog_page() ) {
+				return;
+			}
+
+			$instance  = $this;
+			$languages = Helpers::get_languages();
+
+			$this->add_blog_page_to_language( $languages, get_current_blog_id() );
+
+			Helpers::walk_sites(
+				function( $site ) use ( $instance, $languages ) {
+					$instance->add_blog_page_to_language( $languages, $site->blog_id );
+				}
+			);
+
 		} elseif ( is_singular() ) {
 
 			/** @var WP_Post $post */ // phpcs:ignore
@@ -187,5 +204,40 @@ class Languages {
 		$this->languages[ $data['code'] ] = $data;
 
 		return $this;
+	}
+
+	/**
+	 * Add Blog page to language.
+	 *
+	 * @param  array $languages Languages.
+	 * @param  int   $blog_id Blog Id.
+	 * @return void
+	 */
+	private function add_blog_page_to_language( $languages, $blog_id ) {
+		// Check lang for site.
+		if ( empty( $languages[ $blog_id ] ) ) {
+			return;
+		}
+
+		$blog_page_id = get_blog_option( $blog_id, 'page_for_posts' );
+		if ( empty( $blog_page_id ) ) {
+			return;
+		}
+
+		$page = get_post( $blog_page_id );
+		if ( ! $page instanceof WP_Post ) {
+			return;
+		}
+
+		if ( 'publish' !== $page->post_status ) {
+			return;
+		}
+
+		$url = get_permalink( $page->ID );
+		if ( empty( $url ) ) {
+			return;
+		}
+
+		$this->add_language( $languages[ $blog_id ], $url );
 	}
 }

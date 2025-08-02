@@ -13,9 +13,12 @@ defined( 'ABSPATH' ) || exit;
  * Settings class.
  */
 final class Settings {
-	const FIELD_HOMEPAGE   = '_plance_multilang_perelink__homepage';
+	const FIELD_BLOG_PAGE  = '_plance_multilang_perelink__blogpage';
+	const FIELD_HOME_PAGE  = '_plance_multilang_perelink__homepage';
 	const FIELD_POST_TYPES = '_plance_multilang_perelink__post_types';
 	const FIELD_TAXONOMIES = '_plance_multilang_perelink__taxonomies';
+
+	const VALUE_YES = 'yes';
 
 	/**
 	 * Get attr option.
@@ -29,12 +32,21 @@ final class Settings {
 	}
 
 	/**
-	 * Enable homepage for perelink.
+	 * Enable home page for perelink.
 	 *
 	 * @return bool
 	 */
-	public static function is_enable_homepage() {
-		return 'yes' === self::get_option( self::FIELD_HOMEPAGE );
+	public static function is_enable_home_page() {
+		return self::VALUE_YES === self::get_option( self::FIELD_HOME_PAGE );
+	}
+
+	/**
+	 * Enable blog page for perelink.
+	 *
+	 * @return bool
+	 */
+	public static function is_enable_blog_page() {
+		return self::VALUE_YES === self::get_option( self::FIELD_BLOG_PAGE );
 	}
 
 	/**
